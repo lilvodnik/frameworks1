@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Библиотека книг</title>
+    <meta charset="utf-8" />
+    <style>
+        body { font-family: Arial; margin: 20px; }
+        .book { border-bottom: 1px solid #ccc; margin-bottom: 10px; padding: 5px; }
+        input { margin: 5px; }
+    </style>
+</head>
+<body>
+    <h1>Каталог книг</h1>
+    <div id="booksList"></div>
+    <h2>Добавить новую книгу</h2>
+    <input type="text" id="title" placeholder="Название" />
+    <input type="text" id="author" placeholder="Автор" />
+    <input type="number" id="price" placeholder="Цена" />
+    <button onclick="createBook()">Создать</button>
+
+    <script>
+        async function loadBooks() {
+            const response = await fetch('/api/books');
+            const books = await response.json();
+            const container = document.getElementById('booksList');
+            container.innerHTML = books.map(book => 
+                `<div class="book">
+                    <strong>${book.title}</strong> — ${book.author} (${book.price} руб.)<br/>
+                    <small>ID: ${book.id}</small>
+                </div>`
+            ).join('');
+        }
+
+        async function createBook() {
+            const title = document.getElementById('title').value;
+            const author = document.getElementById('author').value;
+            const price = parseFloat(document.getElementById('price').value);
+            const response = await fetch('/api/books', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ title, author, price })
+            });
+            if (response.ok) {
+                alert('Книга добавлена');
+                loadBooks(); // обновить список
+                document.getElementById('title').value = '';
+                document.getElementById('author').value = '';
+                document.getElementById('price').value = '';
+            } else {
+                const error = await response.json();
+                alert('Ошибка: ' + error.message);
+            }
+        }
+
+        loadBooks();
+    </script>
+</body>
+</html>

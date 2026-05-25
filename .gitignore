@@ -1,0 +1,28 @@
+## Ignore Visual Studio temporary files, build results, etc.
+bin/
+obj/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## .NET Core / .NET 5+
+**/bin/
+**/obj/
+*.log
+*.cache
+*.tmp
+
+## Rider / JetBrains
+.idea/
+*.sln.iml
+
+## VS Code
+.vscode/
+
+## Test results
+TestResults/
+*.trx
+
+## User-specific files
+*.rsuser
