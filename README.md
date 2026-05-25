@@ -7,11 +7,17 @@
 4. Замеряет время выполнения через TimingMiddleware
 
 Вызов rest.api осуществляется через терминал после запуска приложения
-curl http://localhost:5000/api/books - получение всех книг
+```
+curl http://localhost:5000/api/books
+```
+ - получение всех книг
 ```
 curl -X POST http://localhost:5000/api/books \
   -H "Content-Type: application/json" \
   -d '{"title":"Мастер и Маргарита","author":"Булгаков","price":500}'
 ```
  - создание новой книги
-curl http://localhost:5000/api/books/1 - получить книги по id
+```
+curl http://localhost:5000/api/books/1
+```
+ - получить книги по id
